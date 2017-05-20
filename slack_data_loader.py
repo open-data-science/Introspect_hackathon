@@ -59,6 +59,8 @@ class SlackLoader(object):
                             record['dt'] = datetime.datetime.fromtimestamp(record['ts'])
                         record['channel'] = channel_id
                         self.messages.append(record)
+        self.messages = sorted(self.messages, key=lambda x: x['ts'])
+
 
 re_slack_link = re.compile(r'(?P<all><(?P<id>[^\|]*)(\|(?P<title>[^>]*))?>)')
 
