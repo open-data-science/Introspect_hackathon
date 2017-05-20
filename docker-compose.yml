@@ -1,0 +1,26 @@
+version: '2'
+services:
+  elasticsearch1:
+    image: elasticsearch
+    container_name: elasticsearch1
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g -Djava.security.policy=file:///usr/share/config_data/java_policy"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 262144
+        hard: 262144
+    mem_limit: 1g
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - ./search_data:/usr/share/elasticsearch/data
+      - ./help_data:/usr/share/config_data
+    ports:
+      - 9200:9200
+      - 9300:9300
+    network_mode: "host"
