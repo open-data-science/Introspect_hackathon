@@ -2,6 +2,8 @@ from __future__ import unicode_literals
 from __future__ import print_function
 from __future__ import absolute_import
 
+from collections import defaultdict
+
 import datetime
 import glob
 import json
@@ -60,6 +62,14 @@ class SlackLoader(object):
                         record['channel'] = channel_id
                         self.messages.append(record)
         self.messages = sorted(self.messages, key=lambda x: x['ts'])
+
+    def find_threads(self):
+        dd = defaultdict(list)
+        for i in range(0, len(self.messages)):
+            msg = self.messages[i]
+            if "thread_ts" in msg:
+                dd[msg["thread_ts"]].append(i)
+        return list(dd.values())
 
 
 re_slack_link = re.compile(r'(?P<all><(?P<id>[^\|]*)(\|(?P<title>[^>]*))?>)')
