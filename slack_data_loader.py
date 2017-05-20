@@ -72,5 +72,5 @@ def normalize_links(text):
 
 
 if __name__ == '__main__':
-    exporter = SlackLoader('ODS_dump_Mar_10_2017', exclude_channels=['_random_flood'],
-                           start_date=datetime.datetime(2017, 1, 1))
+    loader = SlackLoader('ODS_dump_Mar_10_2017', exclude_channels=['_random_flood', 'career'])
+    print(len(loader.messages))
