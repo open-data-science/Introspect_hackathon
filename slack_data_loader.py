@@ -1,4 +1,6 @@
-from __future__ import unicode_literals, print_function, absolute_import
+from __future__ import unicode_literals
+from __future__ import print_function
+from __future__ import absolute_import
 
 import datetime
 import glob
@@ -18,7 +20,7 @@ def _read_json_dict(filename, key='id'):
 
 
 class SlackLoader(object):
-    def __init__(self, export_path, exclude_channels=[], only_channels=[], start_date=None, end_date=None):
+    def __init__(self, export_path, exclude_channels=(), only_channels=(), start_date=None, end_date=None):
         self.exclude_channels = exclude_channels
         self.only_channels = only_channels
         if start_date:
@@ -35,7 +37,7 @@ class SlackLoader(object):
         self.channels = _read_json_dict(os.path.join(export_path, 'channels.json'))
         self.users = _read_json_dict(os.path.join(export_path, 'users.json'))
         self.messages = []
-        for channel_id, channel in self.channels.iteritems():
+        for channel_id, channel in self.channels.items():
             if channel['is_archived']:
                 continue
             if channel['name'] in self.exclude_channels:
