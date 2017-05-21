@@ -1,0 +1,34 @@
+encoding "utf8"; 
+
+TTextMinerConfig {
+  Dictionary = "mydic.gzt";
+
+  PrettyOutput = "PrettyOutput.html";  
+
+  Input = {Dir = "messages"}
+
+  //Output = {File = "output" 
+  //          Format = text}
+
+  Output = {
+    File = "facts.xml";
+    Format = xml;
+    //append = 1;
+  }
+
+  Articles = [
+    { Name = "имя" },
+    { Name = "курсы" },
+    { Name = "образование" },
+    { Name = "работа" },
+    { Name = "интерес" }                                           
+  ]
+
+  Facts = [
+    { Name = "Name" },
+    { Name = "Course" },
+    { Name = "Education" },
+    { Name = "Job" },
+    { Name = "Interest" }
+  ]
+}

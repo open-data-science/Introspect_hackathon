@@ -1,0 +1,27 @@
+import "base.proto";
+import "facttypes_base.proto";  
+
+message Name: NFactType.TFact
+{
+    required string Name = 1;
+}
+
+message Course: NFactType.TFact
+{
+    required string CourseName = 1;
+}
+
+message Education: NFactType.TFact
+{
+    required string Name = 1;
+}
+
+message Job: NFactType.TFact
+{
+    required string Name = 1;
+}
+
+message Interest: NFactType.TFact
+{
+    required string Name = 1;
+}

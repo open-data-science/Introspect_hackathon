@@ -1,0 +1,31 @@
+encoding "utf8";               
+
+import "base.proto";           
+import "articles_base.proto";  
+import "fact_types.proto"; 
+
+TAuxDicArticle "имя"
+{
+    key = { "tomita:name.cxx" type=CUSTOM }
+}
+
+
+TAuxDicArticle "курсы"
+{
+    key = { "tomita:courses.cxx" type=CUSTOM }
+}
+
+TAuxDicArticle "образование"
+{
+    key = { "tomita:education.cxx" type=CUSTOM }
+}
+
+TAuxDicArticle "работа"
+{
+    key = { "tomita:job.cxx" type=CUSTOM }
+}
+
+TAuxDicArticle "интерес"
+{
+    key = { "tomita:interest.cxx" type=CUSTOM }
+}
