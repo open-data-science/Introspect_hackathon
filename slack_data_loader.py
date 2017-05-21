@@ -22,7 +22,8 @@ def _read_json_dict(filename, key='id'):
 
 
 class SlackLoader(object):
-    def __init__(self, export_path, exclude_channels=(), only_channels=(), start_date=None, end_date=None):
+    def __init__(self, export_path, exclude_channels=(), only_channels=(), start_date=None, end_date=None,
+                 is_sorted=True):
         self.exclude_channels = exclude_channels
         self.only_channels = only_channels
         if start_date:
@@ -33,12 +34,12 @@ class SlackLoader(object):
             self.end_date = (end_date - datetime.datetime(1970, 1, 1)).total_seconds()
         else:
             self.end_date = None
-        self.load_export(export_path)
-
-    def load_export(self, export_path):
         self.channels = _read_json_dict(os.path.join(export_path, 'channels.json'))
         self.users = _read_json_dict(os.path.join(export_path, 'users.json'))
-        self.messages = []
+        self.messages = self.load_export(export_path, is_sorted)
+
+    def load_export(self, export_path, is_sorted):
+        messages = []
         for channel_id, channel in self.channels.items():
             if channel['is_archived']:
                 continue
@@ -60,8 +61,11 @@ class SlackLoader(object):
                             record['ts'] = float(record['ts'])
                             record['dt'] = datetime.datetime.fromtimestamp(record['ts'])
                         record['channel'] = channel_id
-                        self.messages.append(record)
-        self.messages = sorted(self.messages, key=lambda x: x['ts'])
+                        messages.append(record)
+        if is_sorted:
+            messages = sorted(messages, key=lambda x: x['ts'])
+
+        return messages
 
     def find_threads(self):
         dd = defaultdict(list)
@@ -70,7 +74,6 @@ class SlackLoader(object):
             if "thread_ts" in msg:
                 dd[msg["thread_ts"]].append(i)
         return list(dd.values())
-
 
 re_slack_link = re.compile(r'(?P<all><(?P<id>[^\|]*)(\|(?P<title>[^>]*))?>)')
 
