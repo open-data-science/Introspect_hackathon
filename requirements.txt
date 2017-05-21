@@ -1,0 +1,6 @@
+cython
+numpy
+pymorphy2
+scikit-learn
+vowpalwabbit
+stop_words
