@@ -37,7 +37,7 @@ def is_question(tokens):
 
 
 def prepare_data():
-    loader = SlackLoader('opendatascience Slack export May 20 2017',
+    loader = SlackLoader('opendatascience Slack export May 20 2017', is_sorted=False,
                          only_channels=['nlp', 'deep_learning', 'datasets', 'sequences_series', 'bayesian', '_meetings',
                                         'edu_academy', 'edu_books', 'visualization',
                                         'hardware', 'reinforcement_learnin', 'theory_and_practice'])
@@ -131,6 +131,10 @@ def analyze():
     print(confusion_matrix(y_true, y_pred))
 
 if __name__ == '__main__':
-    # prepare_data()
+    prepare_data()
+
     # here we train a model and predict on test data: bash vw.sh
+    # from subprocess import call
+    # call(["bash vw.sh vw_data_train.vw vw_data_test.vw 0.1 1"])
+
     analyze()
