@@ -1,0 +1,5 @@
+{
+    "users_dump_file": "./../shared/latest_dump/users.json",
+    "users_locations_file": "user_locations_osm.csv",
+    "output_file": "filtered_user_locations.csv"
+}
